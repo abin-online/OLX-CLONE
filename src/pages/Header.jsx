@@ -47,7 +47,7 @@ const Header = () => {
             </Link>
            
         )}
-          <div onClick={()=>navigate("/sell")} className="h-10 w-32 sell flex justify-center items-center rounded-3xl" style={{ backgroundImage: `url(${sell})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
+          <div onClick={()=>navigate("/sell")} className="h-10 w-32 sell flex justify-center items-center rounded-3xl shadow-2xl " style={{ backgroundImage: `url(${sell})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
           >
           <div className=" cursor-pointer h-[82%] w-[86%] bg-white  rounded-3xl flex items-center justify-center gap-1">
             <TiPlus />
