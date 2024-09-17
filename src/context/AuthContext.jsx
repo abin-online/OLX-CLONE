@@ -1,7 +1,6 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import { Children, createContext, useEffect, useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
 
 import { auth, db } from "../utils/FirebaseConfig.js";
 
@@ -10,7 +9,7 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
-  const signup = async (userName, email, phone, password) => {
+  const signUp = async (userName, email, phone, password) => {
     try {
       let userDetails = await createUserWithEmailAndPassword(
         auth,
@@ -39,7 +38,6 @@ export const AuthProvider = ({ children }) => {
       return { success: false };
     }
   };
-};
 
 const login = async(email, password) => {
     try{
@@ -69,9 +67,10 @@ useEffect(() => {
 }, []);
 
 return (
-    <AuthContext.Provider value={{user, signUp, logIn, logOut}}>
+    <AuthContext.Provider value={{user, signUp , login, logOut}}>
     {children}
     </AuthContext.Provider>
 )
+};
 
 export default AuthContext

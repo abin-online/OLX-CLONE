@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, {lazy, Suspense } from "react";
 
 import {
   createBrowserRouter,
@@ -9,6 +9,10 @@ import {
 import Layout from "./pages/Layout";
 import AddProduct from "./pages/AddProduct.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import Home from "./pages/Home.jsx";
+import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
+import Sell from "./pages/Sell.jsx";
 
 const ProductDetails = lazy(() => import("./pages/ProductDetails.jsx"));
 
