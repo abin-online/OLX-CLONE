@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
         email,
         password
       );
+      console.log(" userDetails     ",userDetails)
 
       await updateProfile(userDetails.user, {
         displayName: userName,

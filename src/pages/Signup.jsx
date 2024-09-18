@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FormInput from "../components/FormInput";
 import AuthContext from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Spinner from "../components/Spinner";
 
 const Signup = () => {
+
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -44,7 +45,14 @@ const Signup = () => {
     }
   };
 
-  if (user) return navigate("/");
+  
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");  // Redirect when the user is already logged in
+    }
+  }, [user, navigate]);
+  
 
   return (
     <div className="flex justify-center items-center min-h-[70vh] mt-4">
@@ -60,7 +68,7 @@ const Signup = () => {
           handleChange={handleName}
         />
         <FormInput
-          type="emial"
+          type="email"
           placeHolder="Email"
           handleChange={handleEmail}
         />

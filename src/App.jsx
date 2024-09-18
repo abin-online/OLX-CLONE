@@ -1,5 +1,5 @@
-import React, {lazy, Suspense } from "react";
-
+import { lazy, Suspense } from "react";
+import "./App.css";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -7,12 +7,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Layout from "./pages/Layout";
-import AddProduct from "./pages/AddProduct.jsx";
-import { AuthProvider } from "./context/AuthContext.jsx";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import { AuthProvider } from "./context/AuthContext";
+import Sell from "./pages/Sell";
+import AddProduct from "./pages/AddProduct";
+import { ProductProvider } from "./context/ProductContext";
 import Home from "./pages/Home.jsx";
-import Login from "./pages/Login.jsx";
-import Signup from "./pages/Signup.jsx";
-import Sell from "./pages/Sell.jsx";
 
 const ProductDetails = lazy(() => import("./pages/ProductDetails.jsx"));
 
@@ -27,25 +28,31 @@ const router = createBrowserRouter(
           path="product-details/:id"
           element={
             <Suspense
-              fallback={<h1 className="text-center font-bold">Loading</h1>}
+              fallback={
+                <h1 className="text-center font-bold text-3xl">
+                  Loading...
+                </h1>
+              }
             >
               <ProductDetails />
             </Suspense>
           }
         />
       </Route>
-      <Route path="/sell" element={<Sell/>}/>
-      <Route path="/add-product" element={<AddProduct/>}/>
+      <Route path="/sell" element={<Sell />} />
+      <Route path="/add-product" element={<AddProduct />} />
     </>
   )
 );
 
-const App = () => {
+function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <ProductProvider>
+        <RouterProvider router={router} />
+      </ProductProvider>
     </AuthProvider>
   );
-};
+}
 
 export default App;

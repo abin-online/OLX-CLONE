@@ -1,7 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import AuthContext from "./AuthContext";
-import { getDownloadURL, uploadBytes } from "firebase/storage";
-import { addDoc, collection } from "firebase/firestore";
+import { createContext, useContext, useEffect, useState } from "react";
+import { db, storage } from "../utils/FirebaseConfig";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import AuthContext from "./AuthContext.jsx";
+
+const ProductContext = createContext(null);
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -10,6 +13,7 @@ export const ProductProvider = ({ children }) => {
   const addProduct = async (title, description, price, images) => {
     try {
       let imageUrls = [];
+
       for (let image of images) {
         const storageRef = ref(storage, `/images/${image.name}`);
         let snapshot = await uploadBytes(storageRef, image);
@@ -41,6 +45,7 @@ export const ProductProvider = ({ children }) => {
           id: product.id,
         };
       });
+
       setProducts(allProducts);
     } catch (error) {
       console.log(error);
@@ -50,12 +55,11 @@ export const ProductProvider = ({ children }) => {
   useEffect(() => {
     getProduct();
   }, [addProduct]);
-
   return (
-    <ProductProvider value={{ addProduct, products }}>
+    <ProductContext.Provider value={{ addProduct, products }}>
       {children}
-    </ProductProvider>
+    </ProductContext.Provider>
   );
 };
 
-export default ProductProvider;
+export default ProductContext;
