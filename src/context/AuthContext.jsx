@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-const login = async(email, password) => {
+const logIn = async(email, password) => {
     try{
         await signInWithEmailAndPassword(auth,
             email,
@@ -68,7 +68,7 @@ useEffect(() => {
 }, []);
 
 return (
-    <AuthContext.Provider value={{user, signUp , login, logOut}}>
+    <AuthContext.Provider value={{user, signUp , logIn, logOut}}>
     {children}
     </AuthContext.Provider>
 )
